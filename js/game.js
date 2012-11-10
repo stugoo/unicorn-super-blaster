@@ -92,7 +92,7 @@
     // targets to shoot at
     Crafty.c('Target', {
         init: function() {
-            this.requires('Renderable, Collision, Delay')
+            this.requires('2D, Renderable, Collision, Delay, Tween, Actor')
                 // choose a random enemy sprite to use
                 .spriteName('enemy' + Crafty.math.randomInt(1,2))
                 .collision()
@@ -100,11 +100,12 @@
                 .onHit('Bullet', this._hitByBullet);
             // choose a random position
             this._randomlyPosition();
+            this.moveTarget();
         },
         // randomly position
         _randomlyPosition: function() {
             this.attr({
-                x: Crafty.math.randomNumber(500, 800),
+                x: 1000, //Crafty.math.randomNumber(1000, 1200),
                 y: Crafty.math.randomNumber(0,600-this.h)});
         },
         // we got hit!
@@ -122,6 +123,29 @@
             // reappear after a second in a new position
             this.delay(this._randomlyPosition, 1000);
         },
+
+        moveTarget: function() {
+            // var hit = this.hit('Player');
+            // if (hit) {
+            //     this.attack(hit);
+            // } else {
+                var xMovement = Crafty.math.randomInt(-100, 100);
+                var yMovement = Crafty.math.randomInt(-100, 100);
+
+                var newPos = {
+                    x: this.x + (Crafty("Player")._x - this.x)/5,
+                    y: this.y + (Crafty("Player")._y - this.y)/5,
+                    w: this.w,
+                    h: this.h
+                };
+
+                if(this.within.call(newPos, 0, 0, Crafty.viewport.width, Crafty.viewport.height)) {
+                    this.tween({x: newPos.x, y: newPos.y}, 60);
+                }
+            //}
+            
+            this.delay(this.moveTarget, 300);
+        }
     });
 
     // Limit movement to within the viewport
