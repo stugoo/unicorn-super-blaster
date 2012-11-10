@@ -143,8 +143,6 @@
             // hide this offscreen
             this.x = -2000;
 
-
-
             // reappear after a second in a new position
             this.delay(this._randomlyPosition, 1000/score.score);
         },
@@ -170,28 +168,22 @@
 
         randomlyFire: function() {
 
-/*
+
             var score = Crafty('Score').score,
                 min,max, baseline = 10000;
 
                 if( score == 0 ) {
                     max = baseline;
-                    min = max - 1000;
+                    min = 1000 - max;
                 } else {
-                    max = (1/ score )/100000;
-                    min = max-1000
+                    max = Math.floor((10/score)*10000000);
+                    min = Math.floor((10/score)*10000000);
                 }
-
-
-
-                console.log(score)
-*/            //
-
-
+/*
 
         var min = 2000,
             max = 4000;
-            this.delay(this.randomlyFire, Crafty.math.randomInt(min, max));
+  */          this.delay(this.randomlyFire, Crafty.math.randomInt(min, max));
             Crafty.e("EnemyBullet").attr({x: this.x - 5, y: this.y});
         }
     });
@@ -239,7 +231,7 @@
                 });
 
             this.onHit('Target', this.badGuyCollision);
-            this.onHit('EnemyBullet', this.badGuyCollision)
+            this.onHit('EnemyBullet', this.badGuyCollision);
 
             // bind our movement handler to keep us within the Viewport
             this.bind('Moved', function(oldPosition) {
