@@ -1,0 +1,15 @@
+TO DO ----
+
+- get sprites
+- generate baddies
+- badguy movement
+- badguy shooting
+- good guy + badguy collision
+
+
+nice to have
+- power ups
+- health
+- scroring?
+- shooting
+- achievemnt

@@ -13,7 +13,7 @@
         spriteName: function(name) {
             this.requires(name);
             return this; // so we can chain calls to setup functions
-        } 
+        }
     });
 
     // a component to fade out an entity over time
@@ -50,8 +50,8 @@
             });
         },
         // set speed of rotation in degrees per frame
-        rotate: function(speed) { 
-            // rotate about the center of the entity               
+        rotate: function(speed) {
+            // rotate about the center of the entity
             this.origin('center');
             this._rotationSpeed = speed;
             return this; // so we can chain calls to setup functions
@@ -77,7 +77,7 @@
                 // set up animation from column 0, row 1 to column 1
                 .animate('fly', 0, 1, 1)
                 // start the animation
-                .animate('fly', 5, -1)                
+                .animate('fly', 5, -1)
                 // move left every frame, destroy bullet if its off the screen
                 .bind("EnterFrame", function() {
                     this.x += 10;
@@ -88,7 +88,7 @@
         }
     });
 
-    
+
     // targets to shoot at
     Crafty.c('Target', {
         init: function() {
@@ -99,12 +99,12 @@
                 // detect when we get hit by bullets
                 .onHit('Bullet', this._hitByBullet);
             // choose a random position
-            this._randomlyPosition();            
+            this._randomlyPosition();
         },
-        // randomly position 
+        // randomly position
         _randomlyPosition: function() {
             this.attr({
-                x: Crafty.math.randomNumber(500, 800), 
+                x: Crafty.math.randomNumber(500, 800),
                 y: Crafty.math.randomNumber(0,600-this.h)});
         },
         // we got hit!
@@ -137,9 +137,9 @@
         }
     });
 
-    // Player component    
-    Crafty.c('Player', {        
-        init: function() {           
+    // Player component
+    Crafty.c('Player', {
+        init: function() {
             this.requires('Renderable, Fourway, Collision, ViewportBounded, SpriteAnimation')
                 .spriteName('player')
                 .collision()
@@ -178,7 +178,7 @@
         },
         // increment the score - note how we call this.text() to change the text!
         increment: function() {
-            this.score = this.score + 1;
+            this.score = this.score + 1000;
             this.text(this._textGen);
         }
     })
@@ -186,30 +186,30 @@
 
     //
     // Game loading and initialisation
-    //    
+    //
     var Game = function() {
         Crafty.scene('loading', this.loadingScene);
         Crafty.scene('main', this.mainScene);
     };
-    
+
     Game.prototype.initCrafty = function() {
         console.log("page ready, starting CraftyJS");
         Crafty.init(1000, 600);
         Crafty.canvas.init();
-        
+
         Crafty.modules({ 'crafty-debug-bar': 'release' }, function () {
             if (Crafty.debugBar) {
                Crafty.debugBar.show();
             }
         });
     };
-    
+
     // A loading scene -- pull in all the slow things here and create sprites
     Game.prototype.loadingScene = function() {
         var loading = Crafty.e('2D, Canvas, Text, Delay');
         loading.attr({x: 512, y: 200, w: 100, h: 20});
         loading.text('loading...');
-        
+
         function onLoaded() {
             // set up sprites
             Crafty.sprite(64, 'img/shooter-sprites.png', {
@@ -220,29 +220,29 @@
                 explosion1: [0, 3],
                 explosion2: [1, 3]
                 });
-            
+
             // jump to the main scene in half a second
             loading.delay(function() {
                 Crafty.scene('main');
             }, 500);
         }
-        
+
         function onProgress(progress) {
             loading.text('loading... ' + progress.percent + '% complete');
         }
-        
+
         function onError() {
             loading.text('could not load assets');
         }
-        
+
         Crafty.load([
             // list of images to load
             'img/shooter-sprites.png'
-        ], 
+        ],
         onLoaded, onProgress, onError);
-        
+
     };
-    
+
     //
     // The main game scene
     //
@@ -252,20 +252,20 @@
 
         //create a player...
         Crafty.e('Player');
-        
+
         // create some junk to avoid
         for (i = 0; i < 5; i++) {
             Crafty.e('Target');
         }
     };
-    
+
     // kick off the game when the web page is ready
     $(document).ready(function() {
         var game = new Game();
         game.initCrafty();
-        
+
         // start loading things
         Crafty.scene('loading');
     });
-    
+
 })();
