@@ -146,7 +146,7 @@
                 .attr({x: 64, y: 64})
                 // animate the ship - set up animation, then trigger it
                 .animate('fly', 0, 0, 1)
-                .animate('fly', 5, -1)
+                .animate('fly', 100, -1)
                 // set up fourway controller
                 .fourway(5)
 
