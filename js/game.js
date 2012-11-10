@@ -105,7 +105,7 @@
         // randomly position
         _randomlyPosition: function() {
             this.attr({
-                x: Crafty.math.randomNumber(500, 800),
+                x: 1000, //Crafty.math.randomNumber(1000, 1200),
                 y: Crafty.math.randomNumber(0,600-this.h)});
         },
         // we got hit!
