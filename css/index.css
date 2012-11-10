@@ -1,3 +1,12 @@
+body{
+	color: hotpink;
+     font-family: 'Comic Sans MS', cursive;
+    	background: url(../img/bg.jpg);
+
+}
+
+h1 { font-size: 50px; text-transform: uppercase;}
+
 #container {
     margin: auto;
     width: 1024px;
@@ -6,4 +15,8 @@
 
 #cr-stage {
     border: 1px solid black;
+  /* background: url("../img/background.jpg") 0 0 repeat;
+*/
 }
+
+

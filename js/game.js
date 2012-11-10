@@ -88,6 +88,25 @@
         }
     });
 
+    Crafty.c('EnemyBullet', {
+        init: function() {
+            this.requires('Renderable, Collision, Delay, SpriteAnimation')
+                .spriteName('bullet')
+                .collision()
+                // set up animation from column 0, row 1 to column 1
+                .animate('fly', 0, 1, 1)
+                // start the animation
+                .animate('fly', -5, -1)
+                // move left every frame, destroy bullet if its off the screen
+                .bind("EnterFrame", function() {
+                    this.x -= 10;
+                    if (this.x > 1024 || this.x < 0) {
+                        this.destroy();
+                    }
+                })
+        }
+    });
+
 
     // targets to shoot at
     Crafty.c('Target', {
@@ -101,12 +120,13 @@
             // choose a random position
             this._randomlyPosition();
             this.moveTarget();
+            this.randomlyFire();
         },
         // randomly position
         _randomlyPosition: function() {
             this.attr({
-                x: 1000, //Crafty.math.randomNumber(1000, 1200),
-                y: Crafty.math.randomNumber(0,600-this.h)});
+                x: 900, //Crafty.math.randomNumber(1000, 1200),
+                y: Crafty.math.randomNumber(0,600)});
         },
         // we got hit!
         _hitByBullet: function() {
@@ -130,15 +150,12 @@
         },
 
         moveTarget: function() {
-            // var hit = this.hit('Player');
-            // if (hit) {
-            //     this.attack(hit);
-            // } else {
+
                 var xMovement = Crafty.math.randomInt(-100, 100);
                 var yMovement = Crafty.math.randomInt(-100, 100);
 
                 var newPos = {
-                    x: this.x + (Crafty("Player")._x - this.x)/5,
+                    x: this.x -50, //this.x + (Crafty("Player")._x - this.x)/5,
                     y: this.y + (Crafty("Player")._y - this.y)/5,
                     w: this.w,
                     h: this.h
@@ -147,9 +164,13 @@
                 if(this.within.call(newPos, 0, 0, Crafty.viewport.width, Crafty.viewport.height)) {
                     this.tween({x: newPos.x, y: newPos.y}, 60);
                 }
-            //}
 
             this.delay(this.moveTarget, 300);
+        },
+
+        randomlyFire: function() {
+            this.delay(this.randomlyFire, Crafty.math.randomInt(800, 1200))
+            Crafty.e("EnemyBullet").attr({x: this.x - 5, y: this.y});
         }
     });
 
@@ -186,9 +207,6 @@
                     [180, 40]
                 ))
 
-
-
-
                 // also react to the SPACE key being pressed
                 .requires('Keyboard')
                 .bind('KeyDown', function(e) {
@@ -199,6 +217,7 @@
                 });
 
             this.onHit('Target', this.badGuyCollision);
+            this.onHit('EnemyBullet', this.badGuyCollision)
 
             // bind our movement handler to keep us within the Viewport
             this.bind('Moved', function(oldPosition) {
@@ -209,7 +228,6 @@
                 // replace the ship with an explosion!
                 Crafty.e("Explosion").attr({x:this.x, y:this.y});
                 this.destroy();
-
         }
     });
 
