@@ -169,7 +169,29 @@
         },
 
         randomlyFire: function() {
-            this.delay(this.randomlyFire, Crafty.math.randomInt(1800, 2200))
+
+/*
+            var score = Crafty('Score').score,
+                min,max, baseline = 10000;
+
+                if( score == 0 ) {
+                    max = baseline;
+                    min = max - 1000;
+                } else {
+                    max = (1/ score )/100000;
+                    min = max-1000
+                }
+
+
+
+                console.log(score)
+*/            //
+
+
+
+        var min = 2000,
+            max = 4000;
+            this.delay(this.randomlyFire, Crafty.math.randomInt(min, max));
             Crafty.e("EnemyBullet").attr({x: this.x - 5, y: this.y});
         }
     });
