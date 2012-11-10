@@ -173,6 +173,17 @@
                 .animate('fly', 5, -1)
                 // set up fourway controller
                 .fourway(5)
+
+                .collision(new Crafty.polygon(
+                    [10, 40],
+                    [10, 80],
+                    [180, 80],
+                    [180, 40]
+                ))
+
+
+
+
                 // also react to the SPACE key being pressed
                 .requires('Keyboard')
                 .bind('KeyDown', function(e) {
@@ -182,10 +193,18 @@
                     }
                 });
 
+            this.onHit('Target', this.badGuyCollision);
+
             // bind our movement handler to keep us within the Viewport
             this.bind('Moved', function(oldPosition) {
                 this.checkOutOfBounds(oldPosition);
             });
+        },
+        badGuyCollision: function() {
+                // replace the ship with an explosion!
+                Crafty.e("Explosion").attr({x:this.x, y:this.y});
+                this.destroy();
+
         },
     });
 
