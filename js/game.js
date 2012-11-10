@@ -259,13 +259,30 @@
         }
     };
 
-    // kick off the game when the web page is ready
-    $(document).ready(function() {
-        var game = new Game();
-        game.initCrafty();
 
-        // start loading things
-        Crafty.scene('loading');
-    });
+
+    /*STU
+    ====================================*/
+
+
+
+
+
+
+    /*ADAM
+    ====================================*/
+
+
+
+
+
+
+
+    /*MO
+    ====================================*/
+
+
+
+
 
 })();
