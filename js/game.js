@@ -178,7 +178,7 @@
         },
         // increment the score - note how we call this.text() to change the text!
         increment: function() {
-            this.score = this.score + 1;
+            this.score = this.score + 1000;
             this.text(this._textGen);
         }
     })
@@ -259,5 +259,44 @@
         }
     };
 
+
+
+    /*STU
+    ====================================*/
+
+
+
+
+
+
+    /*ADAM
+    ====================================*/
+
+
+
+
+
+
+
+    /*MO
+    ====================================*/
+
+
+
+
+
+
+
+
+
+
+ // kick off the game when the web page is ready
+        $(document).ready(function() {
+            var game = new Game();
+            game.initCrafty();
+
+            // start loading things
+            Crafty.scene('loading');
+        });
 
 })();
