@@ -169,7 +169,7 @@
         },
 
         randomlyFire: function() {
-            this.delay(this.randomlyFire, Crafty.math.randomInt(800, 1200))
+            this.delay(this.randomlyFire, Crafty.math.randomInt(1800, 2200))
             Crafty.e("EnemyBullet").attr({x: this.x - 5, y: this.y});
         }
     });
