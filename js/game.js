@@ -191,7 +191,7 @@
                 .attr({x: 64, y: 64})
                 // animate the ship - set up animation, then trigger it
                 .animate('fly', 0, 0, 1)
-                .animate('fly', 5, -1)
+                .animate('fly', 100, -1)
                 // set up fourway controller
                 .fourway(5)
 
@@ -201,9 +201,6 @@
                     [180, 80],
                     [180, 40]
                 ))
-
-
-
 
                 // also react to the SPACE key being pressed
                 .requires('Keyboard')
@@ -226,7 +223,6 @@
                 // replace the ship with an explosion!
                 Crafty.e("Explosion").attr({x:this.x, y:this.y});
                 this.destroy();
-
         },
     });
 
