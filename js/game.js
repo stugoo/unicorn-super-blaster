@@ -143,7 +143,7 @@
                     this.tween({x: newPos.x, y: newPos.y}, 60);
                 }
             //}
-            
+
             this.delay(this.moveTarget, 300);
         }
     });
