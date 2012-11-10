@@ -133,8 +133,8 @@
                 var yMovement = Crafty.math.randomInt(-100, 100);
 
                 var newPos = {
-                    x: this.x + 100,
-                    y: this.y + 100,
+                    x: this.x + (Crafty("Player")._x - this.x)/5,
+                    y: this.y + (Crafty("Player")._y - this.y)/5,
                     w: this.w,
                     h: this.h
                 };
