@@ -157,9 +157,6 @@
                     [180, 40]
                 ))
 
-
-
-
                 // also react to the SPACE key being pressed
                 .requires('Keyboard')
                 .bind('KeyDown', function(e) {
@@ -180,7 +177,6 @@
                 // replace the ship with an explosion!
                 Crafty.e("Explosion").attr({x:this.x, y:this.y});
                 this.destroy();
-
         },
     });
 
