@@ -55,7 +55,7 @@
             this.origin('center');
             this._rotationSpeed = speed;
             return this; // so we can chain calls to setup functions
-        },
+        }
     });
 
     // an exciting explosion!
@@ -64,7 +64,7 @@
             // reuse some helpful components
             this.requires('Renderable, FadeOut')
                 .spriteName('explosion' + Crafty.math.randomInt(1,2))
-                .fadeOut(0.1);
+                .fadeOut(0.07);
         }
     });
 
@@ -77,14 +77,14 @@
                 // set up animation from column 0, row 1 to column 1
                 .animate('fly', 0, 1, 1)
                 // start the animation
-                .animate('fly', 5, -1)
+                .animate('fly', 2, -1)
                 // move left every frame, destroy bullet if its off the screen
                 .bind("EnterFrame", function() {
                     this.x += 10;
                     if (this.x > 1024) {
                         this.destroy();
                     }
-                })
+                });
         }
     });
 
@@ -111,8 +111,11 @@
         // we got hit!
         _hitByBullet: function() {
             // find the global 'Score' component
-            var score = Crafty('Score');
+            var score = Crafty('Score'),
+                scoreModifier;
             score.increment();
+
+            // scoreModifier =
 
             // show an explosion!
             Crafty.e("Explosion").attr({x:this.x, y:this.y});
@@ -120,8 +123,10 @@
             // hide this offscreen
             this.x = -2000;
 
+
+
             // reappear after a second in a new position
-            this.delay(this._randomlyPosition, 1000);
+            this.delay(this._randomlyPosition, 1000/score.score);
         },
 
         moveTarget: function() {
@@ -143,7 +148,7 @@
                     this.tween({x: newPos.x, y: newPos.y}, 60);
                 }
             //}
-            
+
             this.delay(this.moveTarget, 300);
         }
     });
@@ -205,7 +210,7 @@
                 Crafty.e("Explosion").attr({x:this.x, y:this.y});
                 this.destroy();
 
-        },
+        }
     });
 
     // A component to display the player's score
@@ -224,7 +229,7 @@
             this.score = this.score + 1000;
             this.text(this._textGen);
         }
-    })
+    });
 
 
     //
