@@ -269,6 +269,13 @@
                 // replace the ship with an explosion!
                 Crafty.e("Explosion").attr({x:this.x, y:this.y});
                 this.destroy();
+
+                setTimeout(function(){
+                        Crafty.scene('gameOver');
+                },3000);
+
+
+
         }
     });
 
@@ -296,7 +303,9 @@
     //
     var Game = function() {
         Crafty.scene('loading', this.loadingScene);
+        Crafty.scene('start', this.startGameScreen);
         Crafty.scene('main', this.mainScene);
+        Crafty.scene('gameOver', this.gameOver);
     };
 
     Game.prototype.initCrafty = function() {
@@ -330,7 +339,8 @@
 
             // jump to the main scene in half a second
             loading.delay(function() {
-                Crafty.scene('main');
+                Crafty.scene('start');
+                //Crafty.scene('main');
             }, 500);
         }
 
@@ -350,6 +360,30 @@
 
     };
 
+
+
+    //
+    // Game OVER
+    //
+    Game.prototype.startGameScreen = function() {
+        var startScreen = Crafty.e('2D, Canvas, Text, Delay');
+            startScreen.attr({x: 210, y: 200, w: 100, h: 20});
+            startScreen.text('Hit ENTER to play!!!')
+                .textColor('#FF69B4')
+                .textFont({ size: '60px', family: 'Comic Sans MS' });
+
+                startScreen.requires('Keyboard')
+                    .bind('KeyDown', function () {
+                        if (this.isDown(13)){
+                              Crafty.scene('main');
+                              startScreen.textFont({ size: '20px', family: 'Comic Sans MS' });
+                         }
+                });
+
+
+    };
+
+
     //
     // The main game scene
     //
@@ -367,34 +401,27 @@
     };
 
 
+    //
+    // Game OVER
+    //
+    Game.prototype.gameOver = function() {
+        var score = Crafty('Score').score;
 
-    /*STU
-    ====================================*/
+     var startScreen = Crafty.e('2D, Canvas, Text, Delay');
+            startScreen.attr({x: 210, y: 200, w: 100, h: 20});
+            startScreen.text('GAME OVER your score : ' + score)
+                .textColor('#FF69B4')
+                .textFont({ size: '60px', family: 'Comic Sans MS' });
 
+                startScreen.requires('Keyboard')
+                    .bind('KeyDown', function () {
+                        if (this.isDown(13)){
+                              Crafty.scene('main');
+                              startScreen.textFont({ size: '20px', family: 'Comic Sans MS' });
+                         }
+                });
 
-
-
-
-
-    /*ADAM
-    ====================================*/
-
-
-
-
-
-
-
-    /*MO
-    ====================================*/
-
-
-
-
-
-
-
-
+    };
 
 
  // kick off the game when the web page is ready
