@@ -107,6 +107,25 @@
         }
     });
 
+    Crafty.c('BackBullet', {
+        init: function() {
+            this.requires('Renderable, Collision, Delay, SpriteAnimation')
+                .spriteName('bullet')
+                .collision()
+                // set up animation from column 0, row 1 to column 1
+                .animate('fly', 0, 1, 1)
+                // start the animation
+                .animate('fly', 5, -1)
+                // move left every frame, destroy bullet if its off the screen
+                .bind("EnterFrame", function() {
+                    this.x += 10;
+                    if (this.x > 1024 || this.x < 0) {
+                        this.destroy();
+                    }
+                })
+        }
+    });
+
 
     // targets to shoot at
     Crafty.c('Target', {
@@ -120,7 +139,11 @@
             // choose a random position
             this._randomlyPosition();
             this.moveTarget();
-            this.randomlyFire();
+
+            var min = 2000,
+            max = 3000;
+            this.delay(this.randomlyFire, Crafty.math.randomInt(min, max));
+
         },
         // randomly position
         _randomlyPosition: function() {
@@ -153,7 +176,8 @@
                 var yMovement = Crafty.math.randomInt(-100, 100);
 
                 var newPos = {
-                    x: this.x -50, //this.x + (Crafty("Player")._x - this.x)/5,
+                   // x: this.x -50, //this.x + (Crafty("Player")._x - this.x)/5,
+                    x: this.x + (Crafty("Player")._x - this.x)/10,
                     y: this.y + (Crafty("Player")._y - this.y)/5,
                     w: this.w,
                     h: this.h
@@ -168,7 +192,6 @@
 
         randomlyFire: function() {
 
-
             var score = Crafty('Score').score,
                 min,max, baseline = 10000;
 
@@ -179,12 +202,16 @@
                     max = Math.floor((10/score)*10000000);
                     min = Math.floor((10/score)*10000000);
                 }
-/*
 
-        var min = 2000,
-            max = 4000;
-  */          this.delay(this.randomlyFire, Crafty.math.randomInt(min, max));
-            Crafty.e("EnemyBullet").attr({x: this.x - 5, y: this.y});
+            this.delay(this.randomlyFire, Crafty.math.randomInt(min, max));
+
+            //shoot backwards if player is behind
+            if ( this.x > Crafty("Player")._x ) {
+                Crafty.e("EnemyBullet").attr({x: this.x - 5, y: this.y});
+            } else {
+                Crafty.e("BackBullet").attr({x: this.x - 5, y: this.y});
+            }
+
         }
     });
 
