@@ -1,20 +1,33 @@
 body{
 	color: hotpink;
      font-family: 'Comic Sans MS', cursive;
-    	background: url(../img/bg.jpg);
+     background: black;
 
 }
 
-h1 { font-size: 50px; text-transform: uppercase;}
+h1{ font-size: 50px; text-transform: uppercase;  line-height: 1; margin: 0; padding: 0;}
+h2{ font-size: 30px; text-transform: uppercase;  line-height: 1; margin: 0; padding: 0;}
+p { font-size: 30px; text-transform: uppercase; line-height: 1}
+p span{ font-size: 30px; text-transform: lowercase; line-height: 1}
+
+#reload { font-size: 30px; text-transform: uppercase; line-height: 1; position: absolute; top: 0; right: 0; padding: 20px;
+	color: #fff;
+}
+
+
+.left{  float: left; width: 50%;}
+.by {float: right; width: 50%;}
 
 #container {
     margin: auto;
-    width: 1024px;
+    width: 100%;
     text-align: center;
+	background: url(../img/bg2.gif);
+
 }
 
 #cr-stage {
-    border: 1px solid black;
+	margin: auto;
   /* background: url("../img/background.jpg") 0 0 repeat;
 */
 }
